@@ -21,7 +21,7 @@ public class Application {
 			cripter.criptFile();
 
 		} catch (InvalideCriptAlgorithmException e) {
-			System.out.println("Caught " + e);
+			System.err.println("[!] Error: Invalide algorithm `" + setups.getCriptAlgorithm() + "`.");
 			return;
 		} finally {
 			Wishmaster finaler = new Wishmaster(setups);
