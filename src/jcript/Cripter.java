@@ -25,14 +25,18 @@ public class Cripter {
 		java.io.InputStream f = this.setups.getInputFile().iFStream;
 		byte[] bit = new byte[1];
 		boolean flag = true;
-		int i;
+		int i = 0;
 
-		for (i = 0; i < setups.getCriptBufSize() && (flag = (f.read(bit) <= f.available())); i++) {
+		while (i < setups.getCriptBufSize() && flag) {
+			flag = (f.read(bit, 0, 1) <= f.available());
 			buf.setBit(i, bit[0]);
+			i++;
 		}
 
-		this.endFlag = flag;
-		setups.setCriptBufSize(i);
+		this.endFlag = !flag;
+		if (i < setups.getCriptBufSize()) {
+			setups.setCriptBufSize(i);
+		}
 	}
 
 	private void writeCript() throws IOException {

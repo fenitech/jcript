@@ -10,8 +10,11 @@ public class CriptFactory {
 
 		ICriptAlgorithm alg;
 
-		if (setups.getCriptAlgorithm() == "ffa") {
+		String algName = setups.getCriptAlgorithm();
+		if        (algName == "ffa") {
 			alg = new Cript_FFA(setups);
+		} else if (algName == "fna") {
+			alg = new Cript_FNA(setups);
 		} else {
 			throw new InvalideCriptAlgorithmException();
 		}

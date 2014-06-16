@@ -9,6 +9,8 @@ public class Settings {
 		this.reverse        = false;
 		this.criptAlgorithm = "ffa";
 		this.criptBufSize   = 1024 * 1024;
+		this.criptKey = 0;
+
 		this.inputFile = new InputFileStruct();
 		this.outputFile = new OutputFileStruct();
 	}
@@ -30,6 +32,21 @@ public class Settings {
 		this.criptBufSize = val;
 	}
 
+	public void setCriptKey(int key) {
+		if        (key          % 0x10 == 0) {
+			key -= key          % 0x10 + 0x4;
+		} else if (key / 0x10   % 0x10 == 0) {
+			key -= key / 0x10   % 0x10 + 0x4;
+		} else if (key / 0x100  % 0x10 == 0) {
+			key -= key / 0x100  % 0x10 + 0xf;
+		} else if (key / 0x1000 % 0x10 == 0) {
+			key -= key / 0x1000 % 0x10 + 0x8;
+		}
+
+		this.criptKey = key;
+	}
+
+
 	public void setInputFile(String name) {
 		try {
 			this.inputFile.iFDescript = new java.io.File(name);
@@ -49,11 +66,11 @@ public class Settings {
 	}
 
 
-	public boolean getRemove() {
+	public boolean isRemove() {
 		return this.remove;
 	}
 	
-	public boolean getReverse() {
+	public boolean isReverse() {
 		return this.reverse;
 	}
 	
@@ -64,6 +81,11 @@ public class Settings {
 	public int getCriptBufSize() {
 		return this.criptBufSize;
 	}
+
+	public int getCriptKey() {
+		return this.criptKey;
+	}
+
 
 	public InputFileStruct getInputFile() {
 		return this.inputFile;
@@ -78,6 +100,7 @@ public class Settings {
 	private boolean reverse;
 	private String criptAlgorithm;
 	private int criptBufSize;
+	private int criptKey;
 	
 	private InputFileStruct inputFile;
 	private OutputFileStruct outputFile;

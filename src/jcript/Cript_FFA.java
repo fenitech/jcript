@@ -3,7 +3,7 @@ package jcript;
 public class Cript_FFA extends ICriptAlgorithm {
 	
 	final int CRIPT_BLOCK_SIZE = 4;
-	
+
 	public Cript_FFA(Settings setups) {super(setups);}
 
 
@@ -31,6 +31,6 @@ public class Cript_FFA extends ICriptAlgorithm {
 
 
 	private byte reverseBit(byte bit) {
-		return (byte) ((bit & ~0x44) | ((bit & 0x4) << 0x4) | ((bit & 0x40) >> 0x4));
+		return (byte) ((bit & ~0x44) | ((bit & 0x4) << 0x4) | ((bit & 0x40) >>> 0x4));
 	}
 }
